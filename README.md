@@ -5,6 +5,8 @@
 * ***HORA AULA:*** 80h
 * ***HORA RELOGIO:*** 67h
 
+* **Linguagem: Java**
+
 ### Objetivo:
 Favorecer ao aluno a compreensão de aspectos avançados do paradigma de
 desenvolvimento de software orientado a objetos. Realizar a implementação
