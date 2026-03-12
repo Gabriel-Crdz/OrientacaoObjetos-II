@@ -14,11 +14,10 @@ public class Sistema {
     public static void menu(HashMap<String, Aeroporto> aeroportos) throws Exception{
         int opc = -1;
         do { 
-            System.out.println(""); // Print apenas para espaçamento
-            System.out.println("==========MENU==========");
+            System.out.println("\n==========MENU==========");
             System.out.println("[1] Cadastrar aeroporto");
             System.out.println("[2] Listar aeroportos");
-            System.out.println("[3] Remover aeroportos");
+            System.out.println("[3] Remover aeroporto");
             System.out.println("[4] Detalhar aeroporto");
             System.out.println("[0] Sair");
             System.out.println("========================");
@@ -72,12 +71,17 @@ public class Sistema {
         // System.out.println(a.getNome());
 
         aeroportos.put(sigla, aero);
+
+        System.out.println("===================");
     }
 
     public static void listarAeroportos(HashMap<String, Aeroporto> aeroportos){
+        System.out.println("---Aeroportos Cadastrados---");
         for(Aeroporto aero : aeroportos.values()) {
             System.out.println(aero.getNome());
         }
+        
+        System.out.println("======================");
     }
 
     public static void removerAeroportos(HashMap<String, Aeroporto> aeroportos) throws Exception{
@@ -89,7 +93,9 @@ public class Sistema {
             aeroportos.remove(busca);
             System.out.println("\n" + busca + " foi removido!!");
         }
-        else System.out.println("\n" + busca + " não foi encontrado!!");
+        else System.out.println("\n" + busca + " não foi encontrado!!");    
+
+        System.out.println("======================");
     }
 
     public static void detalharAeroporto(HashMap<String, Aeroporto> aeroportos) throws Exception{
@@ -107,6 +113,7 @@ public class Sistema {
             
         }
         else System.out.println(busca + " não encontrado!!");
-
+        
+        System.out.println("=====================");
     }
 }
