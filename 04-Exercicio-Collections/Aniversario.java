@@ -29,7 +29,7 @@ public class Aniversario {
                     cadastrarAniversariante(aniversarios);
                     break;
                 case 2:
-                    // listarDatas();
+                    listarDatas(aniversarios);
                     break;
                 case 3:
                     detalharData(aniversarios);
@@ -50,7 +50,7 @@ public class Aniversario {
         System.out.print("|= Informe o nome: ");
         String pessoa = input.readLine(); 
         
-        System.out.print("| Informe a data(dd/mm): ");
+        System.out.print("|= Informe a data(dd/mm): ");
         String data = input.readLine();
 
         if(! aniversarios.containsKey(data)){
@@ -71,19 +71,28 @@ public class Aniversario {
     }
 
     public static void listarDatas(HashMap<String, ArrayList<String>> aniversarios){
-        for(String item : aniversarios.keySet()){
-            System.out.println(item);
+        System.out.println("\n+===DATAS REGISTRADAS===");
+        for(String data : aniversarios.keySet()){
+            System.out.println("|= " + data);
         }
     }
 
     public static void detalharData(HashMap<String, ArrayList<String>> aniversarios) throws Exception{
+        System.out.println("\n+===DETALHAR===");
+        System.out.print("|= Informe a data (dd/mm): ");
         String busca = input.readLine();
+
         if(aniversarios.containsKey(busca)){
-            for(ArrayList<String> aniversariantes: aniversarios.values()) {
-                for(String pessoa: aniversariantes){
-                    System.out.println(pessoa);
-                }
+            ArrayList<String> aniversariantes = aniversarios.get(busca);
+
+            System.out.println("Aniversariantes em " + busca + ":");
+
+            for(String pessoa : aniversariantes){
+                System.out.println(pessoa);
             }
+        } 
+        else{
+            System.out.println("Nenhum aniversariante nesta data.");
         }
     }
 }

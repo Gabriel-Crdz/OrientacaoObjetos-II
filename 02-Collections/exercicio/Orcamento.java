@@ -1,11 +1,9 @@
 
-import java.util.Date;
-
 public class Orcamento {
     private int id;
     private double valorTotal;
-    private Date dataCriacao;
-    private Date dataLimite;
+    private String dataCriacao;
+    private String dataLimite;
     private boolean status;
 
     public int getId() {
@@ -22,17 +20,17 @@ public class Orcamento {
         this.valorTotal = valorTotal;
     }
 
-    public Date getDataCriacao() {
+    public String getDataCriacao() {
         return dataCriacao;
     }
-    public void setDataCriacao(Date dataCriacao) {
+    public void setDataCriacao(String dataCriacao) {
         this.dataCriacao = dataCriacao;
     }
 
-    public Date getDataLimite() {
+    public String getDataLimite() {
         return dataLimite;
     }
-    public void setDataLimite(Date dataLimite) {
+    public void setDataLimite(String dataLimite) {
         this.dataLimite = dataLimite;
     }
 
