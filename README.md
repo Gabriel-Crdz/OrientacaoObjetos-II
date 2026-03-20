@@ -5,7 +5,7 @@
 * ***HORA AULA:*** 80h
 * ***HORA RELOGIO:*** 67h
 
-* **Linguagem: Java**
+* **Tecnologias: Java, MySQL**
 
 ### Objetivo:
 Favorecer ao aluno a compreensão de aspectos avançados do paradigma de
