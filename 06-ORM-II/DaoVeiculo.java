@@ -84,7 +84,7 @@ public class DaoVeiculo {
 
         try{
             this.conectar();
-            String sql = "DELETE FROM veiculos WHERE " + cod + ";";
+            String sql = "DELETE FROM veiculos WHERE codigo = " + cod + ";";
             st.executeUpdate(sql);
             qtd = st.getUpdateCount(); // Caso um Update acontece ele retornara a quantidade de modificações(nesse caso 1)
         }
