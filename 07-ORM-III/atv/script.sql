@@ -15,7 +15,7 @@ CREATE TABLE vendedores(
     nome VARCHAR(80) NOT NULL,
     contato VARCHAR(10) NOT NULL,
     cargo VARCHAR(7) NOT NULL,
-    salarioBase DECIMAL(10, 2) NOT NULL,
     anoAdmissao INT(4) NOT NULL,
+    salarioBase DECIMAL(10, 2) NOT NULL,
     PRIMARY KEY(codigo)
 );

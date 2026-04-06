@@ -1,6 +1,7 @@
 {
     "java.project.referencedLibraries": [
         "lib/**/*.jar",
-        "util/postgresql-42.7.9.jar"
+        "util/postgresql-42.7.9.jar",
+        "util/mysql-connector-java-8.0.26.jar"
     ]
 }

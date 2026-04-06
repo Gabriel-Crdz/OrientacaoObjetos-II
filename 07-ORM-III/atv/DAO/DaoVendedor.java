@@ -36,15 +36,14 @@ public class DaoVendedor {
             this.conectar();
             String sql = "INSERT INTO vendedores VALUES(" 
             + "null, '"
-            + v.getCodigo() + "', '"
             + v.getNome() + "', '"
             + v.getContato() + "', '"
-            + v.getSalarioBase() + "', '"
-            + v.getAnoAdmissao() + "', '"
-            + v.getCargo() + "');"; 
+            + v.getCargo() + "', " 
+            + v.getAnoAdmissao() + ", "
+            + v.getSalarioBase() + ");";
 
-            System.out.println(sql);
-            st.executeQuery(sql);
+            // System.out.println(sql);
+            st.executeUpdate(sql);
             resultado = true;
         }
         catch(Exception e){
@@ -61,7 +60,7 @@ public class DaoVendedor {
 
         try{
             this.conectar();
-            ResultSet rs = st.executeQuery("SELECT * FROM vendedor WHERE codigo = " + cod + ";");
+            ResultSet rs = st.executeQuery("SELECT * FROM vendedores WHERE codigo = " + cod + ";");
             while(rs.next()){
                 v = new Vendedor();
                 v.setCodigo(rs.getInt("codigo"));
@@ -91,10 +90,10 @@ public class DaoVendedor {
             + " contato = '" + v.getContato() + "', "
             + " cargo = '" +v.getCargo() + "', "
             + " anoAdmissao = '" + v.getAnoAdmissao() + "', "
-            + " salarioBase = '" + v.getSalarioBase() + "', "
+            + " salarioBase = '" + v.getSalarioBase() + "' "
             + " WHERE codigo = " + v.getCodigo() + ";";
 
-            System.out.println(sql);
+            // System.out.println(sql);
             st.executeUpdate(sql);
             qtd = st.getUpdateCount();
         }
@@ -130,7 +129,7 @@ public class DaoVendedor {
         ArrayList<Vendedor> resultados = new ArrayList<Vendedor>();
         try{
             this.conectar();
-            ResultSet rs = st.executeQuery("SELECT * FROM vendedor ORDER BY nome");
+            ResultSet rs = st.executeQuery("SELECT * FROM vendedores ORDER BY nome");
             while(rs.next()){
                 Vendedor v = new Vendedor();
                 v.setCodigo(rs.getInt("codigo"));
