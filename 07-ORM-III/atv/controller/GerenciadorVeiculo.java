@@ -1,3 +1,8 @@
+package controller;
+
+import model.Veiculo;
+import DAO.DaoVeiculo;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -6,7 +11,7 @@ public class GerenciadorVeiculo {
     Scanner scan;
     DaoVeiculo daoVeiculo;
 
-    GerenciadorVeiculo(){ // Metodo Construtor
+    public GerenciadorVeiculo(){ // Metodo Construtor
         scan = new Scanner(System.in);
         daoVeiculo = new DaoVeiculo();
     }

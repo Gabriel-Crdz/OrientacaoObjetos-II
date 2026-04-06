@@ -1,31 +1,33 @@
+package DAO;
 
+import java.sql.Connection;
 import java.sql.Statement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.sql.Connection;
 
-public class DaoVeiculo {
+import model.Veiculo;
+import util.Conexao;
+
+public class DaoVeiculo{
     private Connection conn;
     private Statement st;
 
-    /* Metodos de conexão com o banco */
-    private void conectar(){
-        try{
-            this.conn = Conexao.pegarConexao(); // Puxa a conexão
-            this.st = conn.createStatement(); // Statement: uma ponte, convertendo objetos da aplicação em instruções SQL
-        }
-        catch(Exception e){
-            System.out.println("Erro: " + e.getMessage());
+    /* Metodos de acesso ao banco */
+    private void conectar() {
+        try {
+            this.conn = Conexao.pegarConexao();
+            this.st = conn.createStatement();
+        } catch (Exception e1) {
+            System.out.println("Erro: " + e1.getMessage());
         }
     }
 
-    private void desconectar(){
-        try{
-            this.st.close(); // Encerra a comunicação
-            this.conn.close(); // Encerra a conexão
-        }
-        catch(Exception e){
-            System.out.println("Erro: " + e.getMessage());
+    private void desconectar() {
+        try {
+            this.st.close();
+            this.conn.close();
+        } catch (Exception e1) {
+            System.out.println("Erro: " + e1.getMessage());
         }
     }
 

@@ -1,4 +1,4 @@
-CREATE DATABASE db_locadora
+CREATE DATABASE dblocadora
     DEFAULT CHARACTER SET = 'utf8mb4';
 
 CREATE TABLE veiculos(

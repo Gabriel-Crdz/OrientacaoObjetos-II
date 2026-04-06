@@ -1,10 +1,12 @@
+package model;
+
 public class Vendedor {
     private int codigo;
     private String nome;
     private String contato;
     private String cargo;
     private int anoAdmissao;
-    private double salarioBase;
+    private float salarioBase;
 
     public int getCodigo() {
         return codigo;
@@ -41,10 +43,10 @@ public class Vendedor {
         this.anoAdmissao = anoAdmissao;
     }
 
-    public double getSalarioBase() {
+    public float getSalarioBase() {
         return salarioBase;
     }
-    public void setSalarioBase(double salarioBase) {
+    public void setSalarioBase(float salarioBase) {
         this.salarioBase = salarioBase;
     }
 

@@ -1,5 +1,8 @@
 import java.util.Scanner;
 
+import controller.GerenciadorVeiculo;
+import controller.GerenciadorVendedor;
+
 public class Locadora {
     public static void main(String[] args) {
        Locadora loc = new Locadora();
@@ -28,12 +31,12 @@ public class Locadora {
 
                 switch (opc) {
                     case 1:
-                        GerenciadorVeiculo gVei = new GerenciadorVeiculo(); // Instancia um novo gerenciador
-                        gVei.menu(); // Chama o sub-menu dentro do gerenciador de veiculos
+                        GerenciadorVeiculo gVeic = new GerenciadorVeiculo(); // Instancia um novo gerenciador
+                        gVeic.menu(); // Chama o sub-menu dentro do gerenciador de veiculos
                         break;
                     case 2:
-                        GerenciadorVendedor gVen = new GerenciadorVendedor();
-                        gVen.menu();
+                        GerenciadorVendedor gVend = new GerenciadorVendedor();
+                        gVend.menu();
                         break;
                     case 0:
                         System.out.println("SAINDO...");
