@@ -1,11 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package view;
 
 import javax.swing.JOptionPane;
-
 import model.DaoVeiculo;
 import model.Veiculo;
 
@@ -15,24 +10,31 @@ import model.Veiculo;
  */
 public class VeiculoView extends javax.swing.JFrame {
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(VeiculoView.class.getName());
-    
-    Veiculo veiculo;
+    Veiculo veiculo; 
     DaoVeiculo daoVeiculo;
+    
+    
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(VeiculoView.class.getName());
+
     /**
      * Creates new form VeiculoView
      */
     public VeiculoView() {
-        daoVeiculo = new DaoVeiculo(); // Instancia o Dao
-        initComponents(); // Inicia os componentes
-        setLocationRelativeTo(null); // Centraliza a janela
-        this.atualizarTableVeiculos();
+        daoVeiculo = new DaoVeiculo();
+        initComponents();
+        this.atualizarTabelaVeiculos();
+        
     }
-
-    public void atualizarTableVeiculos(){
-        table_veiculo.setModel(new VeiculoTableModel(daoVeiculo.listarTodos()));
+    
+    public void atualizarTabelaVeiculos(){
+        jTableVeiculo.setModel(new VeiculoTableModel(daoVeiculo.buscarTodos()));
+    
+    
+    
     }
-
+    
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -42,67 +44,62 @@ public class VeiculoView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTextField1 = new javax.swing.JTextField();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        BgFiltro = new javax.swing.ButtonGroup();
         jLabel1 = new javax.swing.JLabel();
-        tf_marca = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        tfMarca = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        tfCodigo1 = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        tf_modelo = new javax.swing.JTextField();
-        tf_chassi = new javax.swing.JTextField();
+        tfModelo = new javax.swing.JTextField();
+        tfChassi = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
+        tfAno = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        bt_Salvar = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTableVeiculo = new javax.swing.JTable();
+        btExcluir = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
-        tf_ano = new javax.swing.JTextField();
-        btn_salvar = new javax.swing.JButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        table_veiculo = new javax.swing.JTable();
-        tf_codigo = new javax.swing.JTextField();
-
-        jTextField1.setText("jTextField1");
-
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane1.setViewportView(jTable1);
+        RbMarca = new javax.swing.JRadioButton();
+        RbModelo = new javax.swing.JRadioButton();
+        tfFiltro = new javax.swing.JTextField();
+        BtFiltrar = new javax.swing.JButton();
+        BtMostrar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
 
-        jLabel2.setFont(new java.awt.Font("Liberation Sans", 1, 36)); // NOI18N
-        jLabel2.setText("Veiculos");
+        jLabel1.setFont(new java.awt.Font("Liberation Sans", 1, 36)); // NOI18N
+        jLabel1.setText("Veiculos");
 
-        jLabel3.setText("Codigo:");
+        jLabel2.setText("Codigo:");
 
-        jLabel1.setText("Marca:");
+        tfMarca.addActionListener(this::tfMarcaActionPerformed);
 
-        tf_marca.addActionListener(this::tf_marcaActionPerformed);
+        jLabel3.setText("Marca:");
+
+        tfCodigo1.setEditable(false);
+        tfCodigo1.addActionListener(this::tfCodigo1ActionPerformed);
 
         jLabel4.setText("Modelo:");
 
-        tf_modelo.addActionListener(this::tf_modeloActionPerformed);
+        tfChassi.addActionListener(this::tfChassiActionPerformed);
 
-        tf_chassi.addActionListener(this::tf_chassiActionPerformed);
+        jLabel5.setText("Ano:");
 
-        jLabel5.setText("Chassi:");
+        tfAno.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tfAnoFocusLost(evt);
+            }
+        });
 
-        jLabel7.setText("Ano:");
+        jLabel6.setText("Chassi:");
 
-        tf_ano.addActionListener(this::tf_anoActionPerformed);
+        bt_Salvar.setText("Salvar");
+        bt_Salvar.addActionListener(this::bt_SalvarActionPerformed);
 
-        btn_salvar.setText("Salvar");
-        btn_salvar.addActionListener(this::btn_salvarActionPerformed);
-
-        table_veiculo.setModel(new javax.swing.table.DefaultTableModel(
+        jTableVeiculo.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
                 {},
@@ -113,155 +110,258 @@ public class VeiculoView extends javax.swing.JFrame {
 
             }
         ));
-        table_veiculo.addMouseListener(new java.awt.event.MouseAdapter() {
+        jTableVeiculo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                table_veiculoMouseClicked(evt);
+                jTableVeiculoMouseClicked(evt);
             }
         });
-        jScrollPane2.setViewportView(table_veiculo);
+        jScrollPane1.setViewportView(jTableVeiculo);
 
-        tf_codigo.setEditable(false);
+        btExcluir.setText("Excluir");
+        btExcluir.setEnabled(false);
+        btExcluir.addActionListener(this::btExcluirActionPerformed);
+
+        jLabel7.setText("Filtrar por: ");
+
+        BgFiltro.add(RbMarca);
+        RbMarca.setText("Marca");
+        RbMarca.addActionListener(this::RbMarcaActionPerformed);
+
+        BgFiltro.add(RbModelo);
+        RbModelo.setText("Modelo");
+        RbModelo.addActionListener(this::RbModeloActionPerformed);
+
+        tfFiltro.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tfFiltroFocusLost(evt);
+            }
+        });
+
+        BtFiltrar.setText("Filtrar");
+        BtFiltrar.addActionListener(this::BtFiltrarActionPerformed);
+
+        BtMostrar.setText("Mostrar Todos");
+        BtMostrar.addActionListener(this::BtMostrarActionPerformed);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(65, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(29, 29, 29)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(jLabel7)
-                                        .addComponent(jLabel5))
-                                    .addComponent(jLabel4)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(6, 6, 6)
-                                        .addComponent(jLabel1))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(tfCodigo1, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(jLabel6)
                                     .addComponent(jLabel3))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(tfChassi, javax.swing.GroupLayout.DEFAULT_SIZE, 251, Short.MAX_VALUE)
+                                    .addComponent(tfMarca))
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(btn_salvar)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(tf_chassi, javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(tf_modelo, javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(tf_marca, javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(tf_ano, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(tf_codigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addGap(22, 22, 22)))
-                        .addGap(316, 316, 316))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 700, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(61, 61, 61))))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jLabel4))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addGap(27, 27, 27)
+                                        .addComponent(jLabel5)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(tfModelo)
+                                    .addComponent(tfAno)))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addComponent(bt_Salvar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btExcluir))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(RbMarca)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(RbModelo)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tfFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(BtFiltrar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(BtMostrar))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(34, Short.MAX_VALUE)
-                .addComponent(jLabel2)
-                .addGap(18, 18, 18)
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(tfCodigo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(16, 16, 16)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tfMarca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
-                    .addComponent(tf_codigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(jLabel4)
+                    .addComponent(tfModelo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(tf_marca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(tfChassi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5)
+                    .addComponent(tfAno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tf_modelo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(bt_Salvar)
+                    .addComponent(btExcluir))
+                .addGap(12, 12, 12)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 366, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tf_chassi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel7)
-                    .addComponent(tf_ano, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(btn_salvar)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18))
+                    .addComponent(RbMarca)
+                    .addComponent(RbModelo)
+                    .addComponent(tfFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(BtFiltrar)
+                    .addComponent(BtMostrar))
+                .addContainerGap(113, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void tf_codigoActionPerformed(java.awt.event.ActionEvent evt) {                                         
+    private void tfMarcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfMarcaActionPerformed
         // TODO add your handling code here:
-    }                                        
+    }//GEN-LAST:event_tfMarcaActionPerformed
 
-    private void tf_marcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tf_marcaActionPerformed
+    private void tfCodigo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfCodigo1ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_tf_marcaActionPerformed
+    }//GEN-LAST:event_tfCodigo1ActionPerformed
 
-    private void tf_modeloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tf_modeloActionPerformed
+    private void tfChassiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfChassiActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_tf_modeloActionPerformed
+    }//GEN-LAST:event_tfChassiActionPerformed
 
-    private void tf_chassiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tf_chassiActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tf_chassiActionPerformed
-
-    private void tf_anoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tf_anoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tf_anoActionPerformed
-
-    private void btn_salvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_salvarActionPerformed
-        if(tf_marca.getText().equals("") || tf_modelo.getText().equals("") || 
-           tf_chassi.getText().equals("") || tf_ano.getText().equals("")){
-            
-            /* Caso algum campo não seja preenchido mostra uma caixa de mensagem na tela */
-            JOptionPane.showMessageDialog(null, "Preencha todos os campos", "AVISO", JOptionPane.WARNING_MESSAGE); // assinaturas: 1. janela-pai, 2. mensagem a ser mostrada, 3. titulo, 4. icone da mensagem
-        }
+    private void bt_SalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_SalvarActionPerformed
         
-        else{
-            veiculo = new Veiculo();
-            veiculo.setMarca(tf_marca.getText());
-            veiculo.setModelo(tf_modelo.getText());
-            veiculo.setChassi(tf_chassi.getText());
-            veiculo.setAno(Integer.parseInt(tf_ano.getText()));
+        if(tfMarca.getText().equals("") || tfModelo.getText().equals("") || tfChassi.getText().equals("") || tfAno.getText().equals("")){ 
+            
+            JOptionPane.showMessageDialog(null, "Preencha todos os campos", "AVISO", JOptionPane.WARNING_MESSAGE);
 
-            /* Validação para ou cadastrar ou atualizar */
-            if(tf_codigo.getText().equals("")){
-                daoVeiculo.inserir(veiculo); // Chama o metodo para inserir no banco
-            }
-            else{
-                veiculo.setCodigo(Integer.parseInt(tf_codigo.getText()));
+        }else{
+            veiculo = new Veiculo();
+            veiculo.setMarca(tfMarca.getText());
+            veiculo.setModelo(tfModelo.getText());
+            veiculo.setChassi(tfChassi.getText());
+            veiculo.setAno(Integer.parseInt(tfAno.getText()));
+            
+            if(tfCodigo1.getText().equals("")){
+                daoVeiculo.inserir(veiculo);
+            
+            }else{
+                veiculo.setCodigo(Integer.parseInt(tfCodigo1.getText()));
                 daoVeiculo.alterar(veiculo);
             }
             
-            limparCampos(); // Chama o metodo para limpar os campos
-            atualizarTableVeiculos();
+            limparCampos();
+            atualizarTabelaVeiculos();
         }
+    }//GEN-LAST:event_bt_SalvarActionPerformed
+    
+    //Tabela foi clicada
+    private void jTableVeiculoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableVeiculoMouseClicked
+        tfCodigo1.setText(
+                jTableVeiculo.getValueAt(jTableVeiculo.getSelectedRow(), 
+                    VeiculoTableModel.COL_CODIGO).toString()); 
         
-    }//GEN-LAST:event_btn_salvarActionPerformed
-
-    private void table_veiculoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_table_veiculoMouseClicked
-        tf_codigo.setText(table_veiculo.getValueAt(table_veiculo.getSelectedRow(), VeiculoTableModel.COL_CODIGO).toString());
-
-        tf_marca.setText(table_veiculo.getValueAt(table_veiculo.getSelectedRow(), VeiculoTableModel.COL_MARCA).toString());
-
-        tf_modelo.setText(table_veiculo.getValueAt(table_veiculo.getSelectedRow(), VeiculoTableModel.COL_MODELO).toString());
+        tfMarca.setText( jTableVeiculo.getValueAt(jTableVeiculo.getSelectedRow(), VeiculoTableModel.COL_MARCA).toString()); 
+        tfModelo.setText( jTableVeiculo.getValueAt(jTableVeiculo.getSelectedRow(), VeiculoTableModel.COL_MODELO).toString()); 
+        tfChassi.setText( jTableVeiculo.getValueAt(jTableVeiculo.getSelectedRow(), VeiculoTableModel.COL_CHASSI).toString()); 
+        tfAno.setText( jTableVeiculo.getValueAt(jTableVeiculo.getSelectedRow(), VeiculoTableModel.COL_ANO).toString()); 
         
-        tf_chassi.setText(table_veiculo.getValueAt(table_veiculo.getSelectedRow(), VeiculoTableModel.COL_CHASSI).toString());
+        btExcluir.setEnabled(true);
+        
+        
+    }//GEN-LAST:event_jTableVeiculoMouseClicked
 
-        tf_ano.setText(table_veiculo.getValueAt(table_veiculo.getSelectedRow(), VeiculoTableModel.COL_ANO).toString());
-    }//GEN-LAST:event_table_veiculoMouseClicked
+    private void tfAnoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfAnoFocusLost
+        if(!tfAno.getText().equals("")){
+          try{
+            int i = Integer.parseInt(tfAno.getText());
+            
+          }catch(NumberFormatException e){
+              JOptionPane.showMessageDialog(null, "O ano deve ser um número inteiro" , "AVISO", JOptionPane.WARNING_MESSAGE);
+              tfAno.setText("");
+          }
+        }
+    }//GEN-LAST:event_tfAnoFocusLost
 
-    public void limparCampos(){
-        tf_codigo.setText("");
-        tf_marca.setText("");
-        tf_modelo.setText("");
-        tf_chassi.setText("");
-        tf_ano.setText("");
+    private void RbMarcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RbMarcaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_RbMarcaActionPerformed
+
+    private void RbModeloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RbModeloActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_RbModeloActionPerformed
+
+    private void tfFiltroFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfFiltroFocusLost
+        
+    }//GEN-LAST:event_tfFiltroFocusLost
+
+    private void BtFiltrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtFiltrarActionPerformed
+        String campo = "";
+        if(RbMarca.isSelected()){
+            campo = "marca";
+            
+        } else {
+            campo = "modelo";
+        }
+        jTableVeiculo.setModel(new VeiculoTableModel (daoVeiculo.buscarTodosFiltro(campo, tfFiltro.getText())));
+        limparCampos();
+        
+    }//GEN-LAST:event_BtFiltrarActionPerformed
+
+    private void BtMostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtMostrarActionPerformed
+        limparCampos();
+        tfFiltro.setText("");
+        atualizarTabelaVeiculos();
+    }//GEN-LAST:event_BtMostrarActionPerformed
+    
+    //Tabela foi clicada
+    private void btExcluirActionPerformed(java.awt.event.ActionEvent evt){
+        int confirma = JOptionPane.showConfirmDialog(null, "Confirma a exclusão do veiculo codigo " + tfCodigo1.getText() + "?", "Exclusão de Veiculo", JOptionPane.YES_NO_OPTION);
+
+        if (confirma == 0){
+            daoVeiculo.excluir(Integer.parseInt(tfCodigo1.getText()));
+            limparCampos();
+            atualizarTabelaVeiculos();
+        }
     }
+  
+    
+    public void limparCampos(){
+    
+        //tfCodigo.setText("");
+        tfMarca.setText("");
+        tfModelo.setText("");
+        tfChassi.setText("");
+        tfAno.setText("");
+        btExcluir.setEnabled(false);
+        
+        
+    }
+    
+    
     /**
      * @param args the command line arguments
      */
@@ -288,22 +388,27 @@ public class VeiculoView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btn_salvar;
+    private javax.swing.ButtonGroup BgFiltro;
+    private javax.swing.JButton BtFiltrar;
+    private javax.swing.JButton BtMostrar;
+    private javax.swing.JRadioButton RbMarca;
+    private javax.swing.JRadioButton RbModelo;
+    private javax.swing.JButton btExcluir;
+    private javax.swing.JButton bt_Salvar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTable table_veiculo;
-    private javax.swing.JTextField tf_ano;
-    private javax.swing.JTextField tf_chassi;
-    private javax.swing.JTextField tf_codigo;
-    private javax.swing.JTextField tf_marca;
-    private javax.swing.JTextField tf_modelo;
+    private javax.swing.JTable jTableVeiculo;
+    private javax.swing.JTextField tfAno;
+    private javax.swing.JTextField tfChassi;
+    private javax.swing.JTextField tfCodigo1;
+    private javax.swing.JTextField tfFiltro;
+    private javax.swing.JTextField tfMarca;
+    private javax.swing.JTextField tfModelo;
     // End of variables declaration//GEN-END:variables
 }

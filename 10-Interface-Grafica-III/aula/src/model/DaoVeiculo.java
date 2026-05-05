@@ -1,154 +1,165 @@
 package model;
 
-import java.sql.Statement;
-import java.sql.ResultSet;
-import java.util.ArrayList;
 import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
 
 public class DaoVeiculo {
     private Connection conn;
     private Statement st;
 
-    /* Metodos de conexão com o banco */
     private void conectar(){
-        try{
-            this.conn = Conexao.pegarConexao(); // Puxa a conexão
-            this.st = conn.createStatement(); // Statement: uma ponte, convertendo objetos da aplicação em instruções SQL
-        }
-        catch(Exception e){
+        try {
+            this.conn = GerenciadorConexao.pegarConexao(); //Puxa a conexão
+            this.st = conn.createStatement(); //Statement: objeto que intermedia a conversa com o banco
+
+        } catch (Exception e){
             System.out.println("Erro: " + e.getMessage());
         }
     }
 
     private void desconectar(){
-        try{
-            this.st.close(); // Encerra a comunicação
-            this.conn.close(); // Encerra a conexão
-        }
-        catch(Exception e){
+        try {
+            this.st.close(); 
+            this.conn.close(); 
+        } catch (Exception e){
             System.out.println("Erro: " + e.getMessage());
         }
     }
 
-    /* Metodos do CRUD */
     public boolean inserir(Veiculo v){
         boolean resultado = false;
-        try{
+
+        try {
             this.conectar();
-            /* Comando a ser executado */
-            String sql = "INSERT INTO veiculos VALUES(" + 
-            "NULL, '" 
-            + v.getMarca() + "', '" 
-            + v.getModelo() + "', " + "'" 
-            + v.getChassi() + "', " 
-            + v.getAno() + ");"; 
+            String comando = "INSERT INTO tbveiculos VALUES (" + "Null, '" + v.getMarca() +"', '" + v.getModelo() + "', '" + v.getChassi() + "', " + v.getAno() + ");";
 
-            // System.out.println(sql); // Verificação se o sql esta correto
-            st.executeUpdate(sql); // Executa o comando no banco de dados
-            resultado = true; // retorna true
-        }
-        catch(Exception e){
-            System.out.println("Erro ao inserir: " + e.getMessage());
-        }
-        finally{
-            this.desconectar(); // Por fim encerra a conexão com o banco de dados
-        }
+            //System.out.println(comando);
 
-        return resultado;
-    }
+            st.executeUpdate(comando);
+            resultado = true;
 
-    public Veiculo consultar(int cod){
-        Veiculo v = null;
-
-        try{
-            this.conectar();
-            ResultSet rs = st.executeQuery("SELECT * FROM veiculos WHERE codigo = " + cod + ";");
-            while(rs.next()){ // Passa por cada item e faz o ORM
-                v = new Veiculo();
-                v.setCodigo(rs.getInt("codigo"));
-                v.setMarca(rs.getString("marca")); // Para pegar os valores usa-se o nome do atributo no banco
-                v.setModelo(rs.getString("modelo"));
-                v.setChassi(rs.getString("chassi"));
-                v.setAno(rs.getInt("ano"));
-            }
-        }catch(Exception e){
-            System.out.println("ERRO:" + e.getMessage());
-        }
-        finally{
+        } catch (Exception e) {
+            System.out.println("Erro ao inserir registro: " + e.getMessage());
+        
+        } finally{
             this.desconectar();
         }
 
-        return v;
+        return  resultado;
     }
 
-    public int alterar(Veiculo v){
-        int qtd = 0;
-        try{
+    public ArrayList<Veiculo> buscarTodos(){
+        ArrayList<Veiculo> resultados = new ArrayList<>();
+        try {
             this.conectar();
-            /* Comando a ser executado */
-            String sql = "UPDATE veiculos SET " +
-            "marca = '" + v.getMarca() + "', " +
-            "modelo = '" + v.getModelo() + "', " +
-            "chassi = '" + v.getChassi() + "', " +
-            "ano = '" + v.getAno() +
-            "' WHERE codigo = " + v.getCodigo() + ";"; 
+            ResultSet rs = st.executeQuery("SELECT * FROM tbveiculos ORDER BY marca "); //ResultSet: Armazena os vindo do banco de dados, em formato de tabela.
 
-            // System.out.println(sql); // Verificação se o sql esta correto
-            st.executeUpdate(sql); // Executa o comando no banco de dados
-            qtd = st.getUpdateCount(); // retorna o numero de atualizações
-        }
-        catch(Exception e){
-            System.out.println("Erro ao atualizar: " + e.getMessage());
-        }
-        finally{
-            this.desconectar(); // Por fim encerra a conexão com o banco de dados
-        }
+            while(rs.next()){ //Vai um por um até o proximo ser vazio, não dá null pointer
+                Veiculo v = new Veiculo(); //Dentro do objeto veiculo, ele seta os valores seguinda as tabelas do banco de dados.
 
-        return qtd;
-    }
-
-    public int excluir(int cod){
-        int qtd = 0;
-
-        try{
-            this.conectar();
-            String sql = "DELETE FROM veiculos WHERE codigo =" + cod + ";";
-            st.executeUpdate(sql);
-            qtd = st.getUpdateCount(); // Caso uma alteração aconteça ele retornara a quantidade de modificações(nesse caso 1)
-        }
-        catch(Exception e){
-            System.out.println("ERRO" + e.getMessage());
-        }
-        finally{
-            this.desconectar();
-        }
-        return qtd;
-    }
-
-    public ArrayList<Veiculo> listarTodos(){
-        ArrayList<Veiculo> resultados = new ArrayList<Veiculo>();
-
-        try{
-            this.conectar();
-            ResultSet rs = st.executeQuery("SELECT *FROM veiculos ORDER BY codigo"); // ResultSet: armazena os dados vindos do banco de dados, em formato de tabela
-            while(rs.next()){ // Passa por cada item e faz o ORM
-                Veiculo v = new Veiculo();
                 v.setCodigo(rs.getInt("codigo"));
-                v.setMarca(rs.getString("marca")); // Para pegar os valores usa-se o nome do atributo no banco
+                v.setMarca(rs.getString("marca")); //Tem que ser exatamente o nome que está no banco.
                 v.setModelo(rs.getString("modelo"));
                 v.setChassi(rs.getString("chassi"));
-                v.setAno(rs.getInt("ano"));
+                v.setAno(rs.getInt("ano")); //Tipo seguindo da classe.
 
-                resultados.add(v); // Adiciona o objeto na lista
+                resultados.add(v); //Coloca o Objeto V presetado dentro de um arraylist.
             }
-        }catch(Exception e){
-            System.out.println("ERRO:" + e.getMessage());
-        }
-        finally{
+
+        } catch (Exception e) {
+            System.out.println("Erro ao buscar os registro: " + e.getMessage());
+        
+        } finally{
             this.desconectar();
         }
 
         return resultados;
     }
     
+    public ArrayList<Veiculo> buscarTodosFiltro(String campo, String filtro){
+        ArrayList<Veiculo> resultados = new ArrayList<>();
+        
+        if(!campo.equals("marca") && !campo.equals("modelo")){
+            return resultados;
+        }
+        
+        
+        
+        
+        try {
+            this.conectar();
+            ResultSet rs = st.executeQuery("SELECT * FROM tbveiculos WHERE " + campo + " LIKE '%" + filtro + "%' ORDER BY marca "); //ResultSet: Armazena os vindo do banco de dados, em formato de tabela.
+
+            while(rs.next()){ //Vai um por um até o proximo ser vazio, não dá null pointer
+                Veiculo v = new Veiculo(); //Dentro do objeto veiculo, ele seta os valores seguinda as tabelas do banco de dados.
+
+                v.setCodigo(rs.getInt("codigo"));
+                v.setMarca(rs.getString("marca")); //Tem que ser exatamente o nome que está no banco.
+                v.setModelo(rs.getString("modelo"));
+                v.setChassi(rs.getString("chassi"));
+                v.setAno(rs.getInt("ano")); //Tipo seguindo da classe.
+
+                resultados.add(v); //Coloca o Objeto V presetado dentro de um arraylist.
+            }
+
+        } catch (Exception e) {
+            System.out.println("Erro ao buscar os registro: " + e.getMessage());
+        
+        } finally{
+            this.desconectar();
+        }
+
+        return resultados;
+    }
+
+    public int excluir (int cod){
+        int qtde = 0;
+
+        
+        try {
+            this.conectar();
+            String comando = "DELETE FROM tbveiculos WHERE codigo = " + cod + ";";
+            st.execute(comando);
+            
+            qtde = st.getUpdateCount();
+
+        } catch (Exception e) {
+            System.out.println("Erro ao deletar registro: " + e.getMessage());
+        
+        } finally{
+            this.desconectar();
+        }
+
+        return qtde;
+    }
+
+    public int alterar(Veiculo v){
+        int qtde = 0;
+        try {
+            this.conectar();
+            String comando = "UPDATE tbveiculos SET "
+            + "marca = '" + v.getMarca() + "', " 
+            + "modelo = '" + v.getModelo() + "', " 
+            + "chassi = '" + v.getChassi() + "', " 
+            + "ano = '" + v.getAno() + "' "
+            + "WHERE codigo = " + v.getCodigo() + ";";
+            
+            //System.out.println(comando);
+
+            st.executeUpdate(comando);
+            qtde = st.getUpdateCount();
+
+        } catch (Exception e) {
+            System.out.println("Erro ao inserir registro: " + e.getMessage());
+        
+        } finally{
+            this.desconectar();
+        }
+
+        return qtde;
+    } 
+
+
 }

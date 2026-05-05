@@ -7,16 +7,16 @@ public class Veiculo{
     private String chassi;
     private int ano;
 
-    /* GETTER's, SETTER's */
-    /* Codigo */
+    //Codigo
     public int getCodigo() {
         return codigo;
     }
+
     public void setCodigo(int codigo) {
         this.codigo = codigo;
     }
 
-    /* Marca */
+    //Marca
     public String getMarca() {
         return marca;
     }
@@ -24,7 +24,7 @@ public class Veiculo{
         this.marca = marca;
     }
 
-    /* Modelo */ 
+    //Modelo
     public String getModelo() {
         return modelo;
     }
@@ -32,7 +32,7 @@ public class Veiculo{
         this.modelo = modelo;
     }
 
-    /* Chassi */
+    //Chassi
     public String getChassi() {
         return chassi;
     }
@@ -40,13 +40,17 @@ public class Veiculo{
         this.chassi = chassi;
     }
 
-    /* Ano */
+    //Ano
     public int getAno() {
         return ano;
     }
     public void setAno(int ano) {
         this.ano = ano;
     }
+
+
+
+
 
     
 }
