@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package model;
 
 import java.sql.Connection;
@@ -17,11 +13,11 @@ public class GerenciadorConexao {
 
     public static Connection pegarConexao() throws SQLException{
         
-        String url = "jdbc:mysql://127.0.0.1/db_banco"; // Para o java usar: JDBC
-        String usuario = "root";
+        String url = "jdbc:postgresql://localhost:5432/db_banco"; // Para o java usar: JDBC
+        String usuario = "postgres";
         String senha = "bancodedados";
 
-        conexao = DriverManager.getConnection(url, usuario, senha); // Conexao com o banco atraves do Driver Java do MySql        
+        conexao = DriverManager.getConnection(url, usuario, senha); // Conexao com o banco atraves do Driver Java     
         return conexao;
     }
 }

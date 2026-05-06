@@ -1,8 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package model;
+
+import java.time.LocalDate;
 
 /**
  *
@@ -10,13 +8,14 @@ package model;
  */
 public class Cartao {
     private int codigo;
-    private int numCartao;
+    private String numCartao;
     private String nomeTitular;
     private String agencia;
     private String bandeira;
-    private int cvv;
-    private double limiteCredito;
-    private int dataLimite;
+    private String cvv;
+    private LocalDate dataValidade;
+    private double limiteTotal;
+    private double faturaAtual;
 
     public int getCodigo() {
         return codigo;
@@ -24,14 +23,14 @@ public class Cartao {
     public void setCodigo(int codigo) {
         this.codigo = codigo;
     }
-    
-    public int getNumCartao() {
+
+    public String getNumCartao() {
         return numCartao;
     }
-    public void setNumCartao(int numCartao) {
+    public void setNumCartao(String numCartao) {
         this.numCartao = numCartao;
     }
-    
+
     public String getNomeTitular() {
         return nomeTitular;
     }
@@ -53,24 +52,32 @@ public class Cartao {
         this.bandeira = bandeira;
     }
 
-    public int getCvv() {
+    public String getCvv() {
         return cvv;
     }
-    public void setCvv(int cvv) {
+    public void setCvv(String cvv) {
         this.cvv = cvv;
     }
 
-    public double getLimiteCredito() {
-        return limiteCredito;
+    public LocalDate getDataValidade() {
+        return dataValidade;
     }
-    public void setLimiteCredito(double limiteCredito) {
-        this.limiteCredito = limiteCredito;
+    public void setDataValidade(LocalDate dataValidade) {
+        this.dataValidade = dataValidade;
     }
 
-    public int getDataLimite() {
-        return dataLimite;
+    public double getLimiteTotal() {
+        return limiteTotal;
     }
-    public void setDataLimite(int dataLimite) {
-        this.dataLimite = dataLimite;
+    public void setLimiteTotal(double limiteTotal) {
+        this.limiteTotal = limiteTotal;
     }
+
+    public double getFaturaAtual() {
+        return faturaAtual;
+    }
+    public void setFaturaAtual(double faturaAtual) {
+        this.faturaAtual = faturaAtual;
+    }
+
 }
