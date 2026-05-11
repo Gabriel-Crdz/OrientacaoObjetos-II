@@ -5,6 +5,10 @@
         <group>
             <file>file:/home/gabriel/Documentos/Github/3-SEM/OrientacaoObjetos-II/10-Interface-Grafica-III/atv/src/atv/Atv.java</file>
             <file>file:/home/gabriel/Documentos/Github/3-SEM/OrientacaoObjetos-II/10-Interface-Grafica-III/atv/src/model/DaoCartao.java</file>
+            <file>file:/home/gabriel/Documentos/Github/3-SEM/OrientacaoObjetos-II/10-Interface-Grafica-III/atv/src/model/GerenciadorConexao.java</file>
+            <file>file:/home/gabriel/Documentos/Github/3-SEM/OrientacaoObjetos-II/10-Interface-Grafica-III/atv/src/view/CartaoView.java</file>
+            <file>file:/home/gabriel/Documentos/Github/3-SEM/OrientacaoObjetos-II/10-Interface-Grafica-III/atv/src/model/Cartao.java</file>
+            <file>file:/home/gabriel/Documentos/Github/3-SEM/OrientacaoObjetos-II/10-Interface-Grafica-III/atv/src/view/CartaoTableModel.java</file>
         </group>
     </open-files>
 </project-private>

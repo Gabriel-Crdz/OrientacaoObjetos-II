@@ -1,3 +1,4 @@
+/* DDL MySQL */
 CREATE TABLE cartao(
     codigo INT AUTO_INCREMENT PRIMARY KEY,
     num_cartao VARCHAR(20) NOT NULL,
@@ -10,6 +11,7 @@ CREATE TABLE cartao(
     fatura_atual DECIMAL(10,2) NOT NULL
 );
 
+/* DDL PostgreSQL */
 CREATE TABLE cartao(
     codigo SERIAL PRIMARY KEY,
     num_cartao VARCHAR(20) NOT NULL,
@@ -23,14 +25,7 @@ CREATE TABLE cartao(
 );
 
 INSERT INTO cartao(
-    num_cartao,
-    nome_titular,
-    agencia,
-    bandeira,
-    cvv,
-    data_validade,
-    limite_total,
-    fatura_atual
+    num_cartao, nome_titular, agencia, bandeira, cvv, data_validade, limite_total, fatura_atual
 ) 
 VALUES
 ('4532019823745612', 'Maria Antonieta', 'Bradesco', 'Visa', '321', '2029-08-01', 4500.00, 1200.50),

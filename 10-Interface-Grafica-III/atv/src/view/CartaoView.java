@@ -1,24 +1,58 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package view;
 
-/**
- *
- * @author aluno.lab
- */
+import java.awt.Component;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
+import javax.swing.JOptionPane;
+
+import model.Cartao;
+import model.DaoCartao;
+
 public class CartaoView extends javax.swing.JFrame {
+    
+    DaoCartao daoCartao;
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(CartaoView.class.getName());
 
-    /**
-     * Creates new form CartaoView
-     */
     public CartaoView() {
+        daoCartao = new DaoCartao();
         initComponents();
+        this.atualizarTabelaCartao();
+    }
+    
+    public void atualizarTabelaCartao(){
+        tableCartao.setModel(new CartaoTableModel(daoCartao.listarTodos()));
+
+        this.ajustarColunas();
+    }
+    
+    public void ajustarColunas(){
+        for(int col = 0; col < tableCartao.getColumnCount(); col++) { // Percorre as colunas
+                int tam = 40; // Largura mínima
+                for(int lin = 0; lin < tableCartao.getRowCount(); lin++) { // Percorre as linhas
+                    /* O renderizador é o objeto responsável por exibir o conteúdo da célula */
+                    Component comp = tableCartao.prepareRenderer(tableCartao.getCellRenderer(lin, col), lin, col); // Prepara o novo renderizador da célula.
+                    tam = Math.max(tam, comp.getPreferredSize().width); // Calcula a maior largura necessária
+                }
+            tableCartao.getColumnModel().getColumn(col).setPreferredWidth(tam); // tamanho final
+        }
     }
 
+    public void limparCampos(){
+
+        tfCodigo.setText("");
+        tfNumCartao.setText("");
+        tfNomeTitular.setText("");
+        tfAgencia.setText("");
+        tfBandeira.setText("");
+        tfDataValidade.setText("");
+        tfCvv.setText("");
+        tfLimiteTotal.setText("");
+        tfFaturaAtual.setText("");
+        
+        btnSalvar.setText("Salvar");
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -28,25 +62,336 @@ public class CartaoView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tableCartao = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        tfCodigo = new javax.swing.JTextField();
+        tfNumCartao = new javax.swing.JTextField();
+        tfNomeTitular = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        tfAgencia = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        tfCvv = new javax.swing.JTextField();
+        tfLimiteTotal = new javax.swing.JTextField();
+        tfFaturaAtual = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        btnSalvar = new javax.swing.JButton();
+        btnExcluir = new javax.swing.JButton();
+        tfDataValidade = new javax.swing.JTextField();
+        tfBandeira = new javax.swing.JTextField();
+        jLabel11 = new javax.swing.JLabel();
+        cbFiltro = new javax.swing.JComboBox<>();
+        tfFiltro = new javax.swing.JTextField();
+        btnFiltrar = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        tableCartao.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        tableCartao.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
+        tableCartao.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableCartaoMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tableCartao);
+
+        jLabel1.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        jLabel1.setText("CARTÕES DE CREDITO");
+
+        jLabel2.setText("Codigo:");
+
+        jLabel3.setText("Nº do Cartão:");
+
+        tfCodigo.setEditable(false);
+
+        jLabel4.setText("Nome do Titular:");
+
+        jLabel5.setText("Agencia:");
+
+        jLabel6.setText("Bandeira:");
+
+        jLabel7.setText("Data de Validade:");
+
+        jLabel8.setText("CVV:");
+
+        jLabel9.setText("Limite Total:");
+
+        jLabel10.setText("Fatura Atual:");
+
+        btnSalvar.setText("Salvar");
+        btnSalvar.addActionListener(this::btnSalvarActionPerformed);
+
+        btnExcluir.setText("Excluir");
+        btnExcluir.setEnabled(false);
+        btnExcluir.addActionListener(this::btnExcluirActionPerformed);
+
+        jLabel11.setText("Filtrar por:");
+
+        cbFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nº do Cartão", "Titular", "Agencia", "Bandeira" }));
+
+        btnFiltrar.setText("Filtrar");
+        btnFiltrar.addActionListener(this::btnFiltrarActionPerformed);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tfCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(327, 327, 327))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(56, 56, 56)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel6))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(314, 314, 314))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(tfNumCartao, javax.swing.GroupLayout.DEFAULT_SIZE, 205, Short.MAX_VALUE)
+                                    .addComponent(tfNomeTitular)
+                                    .addComponent(tfAgencia)
+                                    .addComponent(tfBandeira))
+                                .addGap(105, 105, 105)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(tfCvv, javax.swing.GroupLayout.DEFAULT_SIZE, 205, Short.MAX_VALUE)
+                                    .addComponent(tfLimiteTotal)
+                                    .addComponent(tfFaturaAtual)
+                                    .addComponent(tfDataValidade)))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(309, 309, 309)
+                                .addComponent(jLabel1))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(25, 25, 25)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel11)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(cbFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(tfFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 533, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(btnFiltrar, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 833, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap(49, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(tfCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tfNumCartao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7)
+                    .addComponent(jLabel3)
+                    .addComponent(tfDataValidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tfNomeTitular, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfCvv, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel8)
+                    .addComponent(jLabel4))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tfAgencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfLimiteTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel9)
+                    .addComponent(jLabel5))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tfFaturaAtual, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel10)
+                    .addComponent(jLabel6)
+                    .addComponent(tfBandeira, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnSalvar)
+                    .addComponent(btnExcluir))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel11)
+                    .addComponent(cbFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnFiltrar))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 367, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
+    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+        if(tfNomeTitular.getText().equals("") || tfNumCartao.getText().equals("") || 
+            tfAgencia.getText().equals("") || tfBandeira.getText().equals("") || 
+            tfDataValidade.getText().equals("") || tfCvv.getText().equals("") || 
+            tfLimiteTotal.getText().equals("") || tfFaturaAtual.getText().equals("")
+        ){
+            JOptionPane.showMessageDialog(null, "Preencha todos os campos", "AVISO", JOptionPane.WARNING_MESSAGE);
+        }
+        else{
+            Cartao c = new Cartao();
+
+            /* Validações dos campos */
+
+            String erros = "";
+
+            DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            LocalDate dataValidade = null;
+            
+            try{
+                dataValidade = LocalDate.parse(tfDataValidade.getText(), formato);
+            }
+            catch(Exception e){           
+                erros += "A data deve ser no formato dd/MM/yyyy \n";
+                
+                // JOptionPane.showMessageDialog(null, "Data inválida. Use o formato dd/MM/yyyy.", "AVISO", JOptionPane.WARNING_MESSAGE);
+                // tfDataValidade.requestFocus(); // Seleciona o tfDataValidade novamente
+                // return;
+            }
+
+            if(tfCvv.getText().length() != 3){
+                erros += "O cvv deve conter exatamente 3 numeros \n";
+                
+                // JOptionPane.showMessageDialog(null, "O CVV deve conter exatamente 3 números!", "AVISO", JOptionPane.WARNING_MESSAGE);
+                // tfCvv.requestFocus(); // Seleciona o tfCvv novamente
+                // return;  
+            }
+
+            Double limiteTotal = Double.parseDouble(tfLimiteTotal.getText());
+            Double faturaAtual = Double.parseDouble(tfFaturaAtual.getText());
+
+            if(faturaAtual > limiteTotal){
+                erros += "A fatura deve ser menor ou igual ao limite total \n";
+                
+                // JOptionPane.showMessageDialog(null, "A fatura atual deve ser menor que o limite total!", "AVISO", JOptionPane.WARNING_MESSAGE);
+                // return;
+            }
+            
+            if(!erros.equals("")){
+                JOptionPane.showMessageDialog(null, erros,
+                    "AVISO", JOptionPane.WARNING_MESSAGE);
+            }
+            else{
+                /* INSERIR OU ALTERAR */
+                c.setNumCartao(tfNumCartao.getText());
+                c.setNomeTitular(tfNomeTitular.getText());
+                c.setAgencia(tfAgencia.getText());
+                c.setBandeira(tfBandeira.getText());
+                c.setDataValidade(dataValidade.toString());
+                c.setCvv(tfCvv.getText());
+                c.setLimiteTotal(limiteTotal);
+                c.setFaturaAtual(faturaAtual);
+                
+                try{
+                    if(tfCodigo.getText().equals("")){
+                        daoCartao.inserir(c);
+                    }
+                    else{
+                        c.setCodigo(Integer.parseInt(tfCodigo.getText()));
+                        daoCartao.alterar(c);
+                    }
+                }
+                catch(Exception e){
+                    JOptionPane.showMessageDialog(null,
+                        "Erro ao salvar os dados:" + e.getMessage(), "AVISO", JOptionPane.WARNING_MESSAGE);
+                }
+                finally{
+                    this.limparCampos();
+                    this.atualizarTabelaCartao();
+                }
+            }
+        }
+    }//GEN-LAST:event_btnSalvarActionPerformed
+
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+        int confirma = JOptionPane.showConfirmDialog(null, "Confirma a exclusão do veiculo codigo " + tfCodigo.getText() + "?", "Exclusão do Cartão", JOptionPane.YES_NO_OPTION);
+
+        if (confirma == 0){
+            daoCartao.excluir(Integer.parseInt(tfCodigo.getText()));
+            this.limparCampos();
+            this.atualizarTabelaCartao();
+            btnExcluir.setEnabled(false);
+        }
+    }//GEN-LAST:event_btnExcluirActionPerformed
+
+    private void tableCartaoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableCartaoMouseClicked
+        btnSalvar.setText("Alterar");
+        btnExcluir.setEnabled(true);
+        
+        tfCodigo.setText(tableCartao.getValueAt(tableCartao.getSelectedRow(), CartaoTableModel.COL_CODIGO).toString());
+        tfNumCartao.setText(tableCartao.getValueAt(tableCartao.getSelectedRow(), CartaoTableModel.COL_NUM_CARTAO).toString()); 
+        tfNomeTitular.setText(tableCartao.getValueAt(tableCartao.getSelectedRow(), CartaoTableModel.COL_TITULAR).toString()); 
+        tfAgencia.setText(tableCartao.getValueAt(tableCartao.getSelectedRow(), CartaoTableModel.COL_AGENCIA).toString()); 
+        tfBandeira.setText(tableCartao.getValueAt(tableCartao.getSelectedRow(), CartaoTableModel.COL_BANDEIRA).toString());
+        tfDataValidade.setText(tableCartao.getValueAt(tableCartao.getSelectedRow(),CartaoTableModel.COL_DATA_VALIDADE).toString());
+        tfCvv.setText(tableCartao.getValueAt(tableCartao.getSelectedRow(), CartaoTableModel.COL_CVV).toString());
+        tfLimiteTotal.setText(tableCartao.getValueAt(tableCartao.getSelectedRow(), CartaoTableModel.COL_LIMITE_TOTAL).toString()); 
+        tfFaturaAtual.setText(tableCartao.getValueAt(tableCartao.getSelectedRow(), CartaoTableModel.COL_FATURA_ATUAL).toString()); 
+        
+    }//GEN-LAST:event_tableCartaoMouseClicked
+
+    private void btnFiltrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFiltrarActionPerformed
+       
+        String campo = "";
+        if(cbFiltro.getSelectedItem().equals("Nº do Cartão")){campo = "num_cartao";}
+        if(cbFiltro.getSelectedItem().equals("Titular")){campo = "nome_titular";}
+        if(cbFiltro.getSelectedItem().equals("Agencia")){campo = "agencia";}
+        if(cbFiltro.getSelectedItem().equals("Bandeira")){campo = "bandeira";}
+        
+        if(!tfFiltro.getText().equals("")){
+            tableCartao.setModel(new CartaoTableModel(daoCartao.filtrarTodos(campo, tfFiltro.getText())));
+            this.ajustarColunas();
+            tfFiltro.setText("");
+        }
+        else{
+            this.atualizarTabelaCartao();
+        }
+    }//GEN-LAST:event_btnFiltrarActionPerformed
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -70,5 +415,32 @@ public class CartaoView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnExcluir;
+    private javax.swing.JButton btnFiltrar;
+    private javax.swing.JButton btnSalvar;
+    private javax.swing.JComboBox<String> cbFiltro;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable tableCartao;
+    private javax.swing.JTextField tfAgencia;
+    private javax.swing.JTextField tfBandeira;
+    private javax.swing.JTextField tfCodigo;
+    private javax.swing.JTextField tfCvv;
+    private javax.swing.JTextField tfDataValidade;
+    private javax.swing.JTextField tfFaturaAtual;
+    private javax.swing.JTextField tfFiltro;
+    private javax.swing.JTextField tfLimiteTotal;
+    private javax.swing.JTextField tfNomeTitular;
+    private javax.swing.JTextField tfNumCartao;
     // End of variables declaration//GEN-END:variables
 }

@@ -3,13 +3,12 @@ package model;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
-/**
- *
- * @author aluno.lab
- */
 public class DaoCartao {
     private Connection conn;
     private Statement st;
@@ -20,7 +19,7 @@ public class DaoCartao {
             this.conn = GerenciadorConexao.pegarConexao(); // Puxa a conexão
             this.st = conn.createStatement(); // Statement: uma ponte, convertendo objetos da aplicação em instruções SQL
         }
-        catch(Exception e){
+        catch(SQLException e){
             System.out.println("Erro: " + e.getMessage());
         }
     }
@@ -30,19 +29,19 @@ public class DaoCartao {
             this.st.close(); // Encerra a comunicação
             this.conn.close(); // Encerra a conexão
         }
-        catch(Exception e){
+        catch(SQLException e){
             System.out.println("Erro: " + e.getMessage());
         }
     }
     
     public ArrayList<Cartao> listarTodos(){
         ArrayList<Cartao> resultado = new ArrayList<>();
-
+        
         try{
             this.conectar();
-            ResultSet rs = st.executeQuery("SELECT * FROM cartao ORDER BY data_validade ASC");
+            ResultSet rs = st.executeQuery("SELECT * FROM cartao ORDER BY nome_titular ASC");
 
-            while(rs.next()){ //Vai um por um até o proximo ser vazio, não dá null pointer
+            while(rs.next()){ //Vai um por um até o proximo ser vazio, *não dá null pointer
                 Cartao c = new Cartao(); //Dentro do objeto cartão, ele seta os valores seguinda as tabelas do banco de dados.
 
                 c.setCodigo(rs.getInt("codigo"));
@@ -51,14 +50,20 @@ public class DaoCartao {
                 c.setAgencia(rs.getString("agencia"));
                 c.setBandeira(rs.getString("bandeira"));
                 c.setCvv(rs.getString("cvv"));
-                c.setDataValidade(rs.getDate("data_validade").toLocalDate()); // toLocalDate = converte o Date(banco de dados) para o LocalDate(java)
+                DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                
+                LocalDate data = rs.getDate("data_validade").toLocalDate(); // toLocalDate = converte o Date(banco de dados) para o LocalDate(java)
+                
+                String dataFormatada = data.format(formato);
+                
+                c.setDataValidade(dataFormatada); 
                 c.setLimiteTotal(rs.getDouble("limite_total"));
                 c.setFaturaAtual(rs.getDouble("fatura_atual"));
 
                 resultado.add(c); //Coloca o Objeto "c" pre-setado dentro de um arraylist.
             }
         }
-        catch (Exception e) {
+        catch (SQLException e) {
             System.out.println("Erro ao buscar os registros: " + e.getMessage());        
         } finally{
             this.desconectar();
@@ -66,6 +71,49 @@ public class DaoCartao {
 
         return resultado;
     }
+    
+    public ArrayList<Cartao> filtrarTodos(String campo, String filtro){
+        ArrayList<Cartao> resultado = new ArrayList<>();
+        
+        if(!campo.equals("num_cartao") && !campo.equals("nome_titular") && !campo.equals("agencia") && !campo.equals("bandeira")){
+            return resultado;
+        }
+        
+        try{
+            this.conectar();
+            ResultSet rs = st.executeQuery("SELECT * FROM cartao WHERE " + campo + " LIKE '%" + filtro + "%' ORDER BY nome_titular ASC;");
+
+            while(rs.next()){ //Vai um por um até o proximo ser vazio, *não dá null pointer
+                Cartao c = new Cartao(); //Dentro do objeto cartão, ele seta os valores seguinda as tabelas do banco de dados.
+
+                c.setCodigo(rs.getInt("codigo"));
+                c.setNumCartao(rs.getString("num_cartao"));
+                c.setNomeTitular(rs.getString("nome_titular")); //Tem que ser exatamente o nome que está no banco.
+                c.setAgencia(rs.getString("agencia"));
+                c.setBandeira(rs.getString("bandeira"));
+                c.setCvv(rs.getString("cvv"));
+                DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                
+                LocalDate data = rs.getDate("data_validade").toLocalDate(); // toLocalDate = converte o Date(banco de dados) para o LocalDate(java)
+                
+                String dataFormatada = data.format(formato);
+                
+                c.setDataValidade(dataFormatada); 
+                c.setLimiteTotal(rs.getDouble("limite_total"));
+                c.setFaturaAtual(rs.getDouble("fatura_atual"));
+
+                resultado.add(c); //Coloca o Objeto "c" pre-setado dentro de um arraylist.
+            }
+        }
+        catch (SQLException e) {
+            System.out.println("Erro ao buscar os registros: " + e.getMessage());        
+        } finally{
+            this.desconectar();
+        }
+
+        return resultado;
+    }
+    
     public boolean inserir(Cartao c){
         boolean resultado = false;
 
@@ -86,7 +134,7 @@ public class DaoCartao {
             st.executeUpdate(comando);
             resultado = true;
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
             System.out.println("Erro ao inserir registro: " + e.getMessage());
         
         } finally{
@@ -115,7 +163,7 @@ public class DaoCartao {
             st.executeUpdate(comando);
             qtde = st.getUpdateCount();
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
             System.out.println("Erro ao inserir registro: " + e.getMessage());
         
         } finally{
@@ -135,7 +183,7 @@ public class DaoCartao {
             
             qtde = st.getUpdateCount();
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
             System.out.println("Erro ao deletar registro: " + e.getMessage());
         
         } finally{

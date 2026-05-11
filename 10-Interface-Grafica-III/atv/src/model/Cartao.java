@@ -1,11 +1,5 @@
 package model;
 
-import java.time.LocalDate;
-
-/**
- *
- * @author gabriel
- */
 public class Cartao {
     private int codigo;
     private String numCartao;
@@ -13,7 +7,7 @@ public class Cartao {
     private String agencia;
     private String bandeira;
     private String cvv;
-    private LocalDate dataValidade;
+    private String dataValidade;
     private double limiteTotal;
     private double faturaAtual;
 
@@ -59,10 +53,10 @@ public class Cartao {
         this.cvv = cvv;
     }
 
-    public LocalDate getDataValidade() {
+    public String getDataValidade() {
         return dataValidade;
     }
-    public void setDataValidade(LocalDate dataValidade) {
+    public void setDataValidade(String dataValidade) {
         this.dataValidade = dataValidade;
     }
 
