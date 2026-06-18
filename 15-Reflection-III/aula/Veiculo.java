@@ -4,7 +4,6 @@ public class Veiculo {
     private String modelo;
     private String chassi;
     private int ano;
-    
 
     public int getCodigo() {
         return codigo;
