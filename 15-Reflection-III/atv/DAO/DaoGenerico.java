@@ -79,7 +79,15 @@ public class DaoGenerico {
                 numParam++;
                 f.setAccessible(true); // Torna os atributos acessiveis
 
-                if(f.getType().isAssignableFrom(String.class)){ // Valida se o atributo e do tipo String
+                if(f.getType().isEnum()) {
+                    if(f.get(obj) != null) {
+                        pst.setString(numParam, ((Enum<?>) f.get(obj)).name());
+                    }
+                    else{
+                        pst.setString(numParam, null);
+                    }
+                }
+                else if(f.getType().isAssignableFrom(String.class)){ // Valida se o atributo e do tipo String
                     if(f.get(obj) != null){
                         pst.setString(numParam, f.get(obj).toString()); // Se não for nulo, salva o valor
                     }   
@@ -104,18 +112,13 @@ public class DaoGenerico {
                         pst.setString(numParam, null); // Se não salva um valor vazio
                     }
                 }
-                else if(f.getType().isEnum()) {
-                    if(f.get(obj) != null) {
-                        pst.setString(numParam, ((Enum<?>) f.get(obj)).name());
-                    }
-                    else{
-                        pst.setString(numParam, null);
-                    }
-                }
             }
+
+            pst.executeUpdate();
         }
         catch(Exception e){
             System.out.println("\nERRO: " + e.getMessage());
+            System.out.println("Linha: " + e.getStackTrace()[0].getLineNumber());
         }
         finally{
             this.desconectar();
@@ -170,6 +173,7 @@ public class DaoGenerico {
             }
         } catch (Exception e) {
             System.out.println("\nERRO: " + e.getMessage());
+            System.out.println("Linha: " + e.getStackTrace()[0].getLineNumber());
         }finally{
             this.desconectar();
         }
@@ -184,7 +188,8 @@ public class DaoGenerico {
         try {
             this.conectar();
             ResultSet rs = st.executeQuery(
-                "SELECT * FROM " +  TB_PREFIX + c.getSimpleName().toLowerCase() + " WHERE " + campo + " LIKE '%" + filtro + "%';");
+                "SELECT * FROM " +  TB_PREFIX + c.getSimpleName().toLowerCase() + 
+                " WHERE " + campo + " LIKE '%" + filtro + "%' ORDER BY " + campo + ";");
             while(rs.next()){
                 T objRet = c.getConstructor().newInstance(); // Instancia um objeto da classe
 
@@ -220,6 +225,7 @@ public class DaoGenerico {
             }
         } catch (Exception e) {
             System.out.println("\nERRO: " + e.getMessage());
+            System.out.println("Linha: " + e.getStackTrace()[0].getLineNumber());
         }finally{
             this.desconectar();
         }
@@ -234,7 +240,7 @@ public class DaoGenerico {
         try {
             this.conectar();
             ResultSet rs = st.executeQuery(
-                "SELECT * FROM " +  TB_PREFIX + c.getSimpleName().toLowerCase() + " WHERE " + campo + " =" + filtro + ";");
+                "SELECT * FROM " +  TB_PREFIX + c.getSimpleName().toLowerCase() + " WHERE " + campo + " = " + filtro + ";");
             while(rs.next()){
                 objRet = c.getConstructor().newInstance(); // Instancia um objeto da classe, caso exista
 
@@ -269,6 +275,7 @@ public class DaoGenerico {
             }
         } catch (Exception e) {
             System.out.println("\nERRO: " + e.getMessage());
+            System.out.println("Linha: " + e.getStackTrace()[0].getLineNumber());
         }finally{
             this.desconectar();
         }
@@ -349,6 +356,7 @@ public class DaoGenerico {
         }
         catch(Exception e){
             System.out.println("\nERRO: " + e.getMessage());
+            System.out.println("Linha: " + e.getStackTrace()[0].getLineNumber());
         }
         finally{
             this.desconectar();
@@ -366,8 +374,12 @@ public class DaoGenerico {
             st.executeUpdate(comando);
             qtde = st.getUpdateCount();
         }
+        catch(SQLException e){
+            System.out.println("\nAVISO: Não é possivel excluir, porque existe uma outra entidade associada!");
+        }
         catch(Exception e){
             System.out.println("\nERRO: " + e.getMessage());
+            System.out.println("Linha: " + e.getStackTrace()[0].getLineNumber());
         }
         finally{
             this.desconectar();

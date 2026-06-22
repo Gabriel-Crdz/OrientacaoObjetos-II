@@ -1,16 +1,16 @@
 package model;
 
 public class Cidade {
-    private Integer id;
+    private int id;
     private String nome;
     private Float tamanho;
     private boolean capital;
-    private Integer idPais;
+    private int idPais;
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
     public String getNome() {
@@ -25,10 +25,10 @@ public class Cidade {
     public void setTamanho(float tamanho) {
         this.tamanho = tamanho;
     }
-    public Integer getIdPais() {
+    public int getIdPais() {
         return idPais;
     }
-    public void setIdPais(Integer idPais) {
+    public void setIdPais(int idPais) {
         this.idPais = idPais;
     }
 
@@ -38,4 +38,9 @@ public class Cidade {
     public void setCapital(boolean capital) {
         this.capital = capital;
     }
+
+    public String getCapitalString() {
+        return this.capital ? "Sim" : "Não";
+    }
+    
 }

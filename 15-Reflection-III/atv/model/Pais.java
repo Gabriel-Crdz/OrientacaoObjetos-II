@@ -3,17 +3,17 @@ package model;
 import enums.ContinenteEnum;
 
 public class Pais {
-    private Integer id;
+    private int id;
     private String nome;
     private ContinenteEnum continente;
     private int fundacao;
-    private String idiomaOficial;
-    private Integer populacao;
+    private String idioma;
+    private int populacao;
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
     public String getNome() {
@@ -28,16 +28,16 @@ public class Pais {
     public void setContinente(ContinenteEnum continente) {
         this.continente = continente;
     }
-    public String getIdiomaOficial() {
-        return idiomaOficial;
+    public String getIdioma() {
+        return idioma;
     }
-    public void setIdiomaOficial(String idiomaOficial) {
-        this.idiomaOficial = idiomaOficial;
+    public void setIdioma(String idioma) {
+        this.idioma = idioma;
     }
-    public Integer getPopulacao() {
+    public int getPopulacao() {
         return populacao;
     }
-    public void setPopulacao(Integer populacao) {
+    public void setPopulacao(int populacao) {
         this.populacao = populacao;
     }
     public int getFundacao() {
