@@ -1,13 +1,13 @@
-CREATE DATABASE db_mundo
+CREATE DATABASE db_mundo;
 
 /* MySQL */
 /* Tabelas no singular porque o plural de pais é paisES */
 CREATE TABLE tb_pais (
-    id INTPRIMARY KEY AUTO_INCREMENT,
+    id INT PRIMARY KEY AUTO_INCREMENT,
     nome VARCHAR(80) NOT NULL,
     continente VARCHAR(80) NOT NULL,
     fundacao INT(4),
-    idiomaOficial VARCHAR(20),
+    idioma VARCHAR(20),
     populacao INT
 );
 
@@ -18,8 +18,8 @@ CREATE TABLE tb_cidade(
     tamanho NUMERIC(10, 2),
     capital BOOLEAN,
     idPais INT,
-    FOREIGN KEY (idPais) REFERENCES pais(id)
-)
+    FOREIGN KEY (idPais) REFERENCES tb_pais(id)
+);
 
 /* PostgreSQL */
 CREATE TABLE tb_pais (
@@ -27,7 +27,7 @@ CREATE TABLE tb_pais (
     nome VARCHAR(80) NOT NULL,
     continente VARCHAR(80) NOT NULL,
     fundacao INT,
-    idiomaOficial VARCHAR(20),
+    idioma VARCHAR(20),
     populacao INT
 );
 
@@ -46,8 +46,8 @@ INSERT INTO tb_pais (nome, continente, fundacao, idioma, populacao)
 VALUES
 ('Brasil', 'AS', 1822, 'Português', 212000000),
 ('Estados Unidos', 'AN', 1776, 'Inglês', 340000000),
-('Japão', 'AI', NULL, 'Japonês', 124000000),
-('França', 'EU', NULL, 'Francês', 68000000);
+('Japão', 'AI', 0, 'Japonês', 124000000),
+('França', 'EU', 0, 'Francês', 68000000);
 
 -- Cidades
 INSERT INTO tb_cidade (nome, tamanho, capital, idPais) 

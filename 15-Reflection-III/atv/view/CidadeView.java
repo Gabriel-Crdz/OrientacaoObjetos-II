@@ -155,7 +155,11 @@ public class CidadeView {
             System.out.print("|= Informe o nome do campo: ");
             String campo = scan.nextLine();
 
-            System.out.print("|= Informe o valor do filtro: ");
+            if(campo.equals("pais")){
+                campo = "idPais";
+            }
+
+            System.out.print("|= Informe o valor do filtro(o campo pais é por ID): ");
             String filtro = scan.nextLine();
 
             ArrayList<Cidade> cidades = dao.buscarTodosFiltro(Cidade.class, campo, filtro);
@@ -190,13 +194,10 @@ public class CidadeView {
         System.out.println("========CONSULTA UNICA========");
 
         try{
-            System.out.print("|= Informe o nome do campo: ");
-            String campo = scan.nextLine();
-
-            System.out.print("|= Informe o valor do filtro: ");
+            System.out.print("|= Informe o nome da cidade: ");
             String filtro = scan.nextLine();
 
-            Cidade cidade = dao.consultar(Cidade.class, campo, filtro);
+            Cidade cidade = dao.consultar(Cidade.class, "nome", filtro);
             
             if (cidade == null){
                 System.out.println("\nAVISO: Nenhum cidade encontrado!");

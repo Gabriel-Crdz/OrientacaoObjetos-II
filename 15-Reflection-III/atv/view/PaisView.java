@@ -197,13 +197,10 @@ public class PaisView {
         System.out.println("========CONSULTA UNICA========");
 
         try{
-            System.out.print("|= Informe o nome do campo: ");
-            String campo = scan.nextLine();
-
-            System.out.print("|= Informe o valor do filtro: ");
+            System.out.print("|= Informe o nome do pais: ");
             String filtro = scan.nextLine();
 
-            Pais pais = dao.consultar(Pais.class, campo, filtro);
+            Pais pais = dao.consultar(Pais.class, "nome", filtro);
             
             if (pais == null) {
                 System.out.println("\nAVISO: Nenhum pais encontrado!");

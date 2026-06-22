@@ -79,11 +79,12 @@ public class DaoGenerico {
                 numParam++;
                 f.setAccessible(true); // Torna os atributos acessiveis
 
-                if(f.getType().isEnum()) {
-                    if(f.get(obj) != null) {
-                        pst.setString(numParam, ((Enum<?>) f.get(obj)).name());
+                if(f.getType().isEnum()) { // Verifica se o tipo do atributo atual é um enum
+                    if(f.get(obj) != null) { // Obtém o valor do atributo do objeto e verifica se ele não é nulo
+                        pst.setString(numParam, ((Enum<?>) f.get(obj)).name()); // Recupera o valor do enum armazenado no atributo,
+                                                                                // obtém o nome da constante e converte para Enum<?>
                     }
-                    else{
+                    else{ // Caso o atributo enum seja nulo
                         pst.setString(numParam, null);
                     }
                 }
@@ -159,13 +160,13 @@ public class DaoGenerico {
                     else if(f.getType().isAssignableFrom(LocalDate.class)){
                         f.set(objRet, rs.getDate(f.getName().toString()).toLocalDate());
                     }
-                    else if (f.getType().isEnum()) {
-                        String valor = rs.getString(f.getName());
+                    else if (f.getType().isEnum()) { // Verifica se o atributo da classe é do tipo enum
+                        String valor = rs.getString(f.getName()); // Obtém do ResultSet o valor da coluna cujo nome é igual ao do atributo
 
-                        if (valor != null) {
-                            Object enumValor = Enum.valueOf((Class<Enum>) f.getType(), valor);
+                        if (valor != null) {  // Verifica se o valor lido do banco não é NULL
+                            Object enumValor = Enum.valueOf((Class<Enum>) f.getType(), valor); // Converte a String obtida do banco em uma constante do enum correspondente
 
-                            f.set(objRet, enumValor);
+                            f.set(objRet, enumValor); // Atribui o valor do enum ao atributo do objeto
                         }
                     }
                 }
@@ -240,7 +241,7 @@ public class DaoGenerico {
         try {
             this.conectar();
             ResultSet rs = st.executeQuery(
-                "SELECT * FROM " +  TB_PREFIX + c.getSimpleName().toLowerCase() + " WHERE " + campo + " = " + filtro + ";");
+                "SELECT * FROM " +  TB_PREFIX + c.getSimpleName().toLowerCase() + " WHERE " + campo + " = '" + filtro + "' ;");
             while(rs.next()){
                 objRet = c.getConstructor().newInstance(); // Instancia um objeto da classe, caso exista
 
